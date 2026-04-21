@@ -1,0 +1,63 @@
+FSM:
+  _: # enabled fsms
+    Passive:
+      id: 1
+    FixStand:
+      id: 2
+    Velocity:
+      id: 3
+      type: RLBase
+    Velocity_flat:
+      id: 4
+      type: RLBase
+    Velocity_crouch:
+      id: 5
+      type: RLBase
+  Passive:
+    transitions: 
+      FixStand: LT + A.on_pressed
+    mode: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    kd: [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]
+  FixStand:
+    transitions: 
+      Passive: LT + B.on_pressed
+      Velocity: start.on_pressed
+      Velocity_flat: X.on_pressed
+      Velocity_crouch: Y.on_pressed
+    kp: [60, 80, 80, 60, 80, 80, 60, 80, 80, 60, 80, 80]
+    kd: [5, 4, 4, 5, 4, 4, 5, 4, 4, 5, 4, 4]
+    ts: [0, 1, 2]
+    qs: [
+      [],
+      [0.0, 1.36, -2.65, 0.0, 1.36, -2.65, 0.0, 1.36, -2.65, 0.0, 1.36, -2.65],
+      [0., 0.8, -1.5, 0., 0.8, -1.5, 0., 0.8, -1.5, 0., 0.8, -1.5],
+    ]
+  Velocity:
+    transitions: 
+      Passive: LT + B.on_pressed
+      Velocity_flat: X.on_pressed
+      Velocity_crouch: Y.on_pressed
+    #policy_dir: ../../../logs/rsl_rl/unitree_go2_velocity/2026-01-26_19-09-47 #go2
+    #policy_dir: ../../../logs/rsl_rl/unitree_go2_velocity/2026-02-04_14-34-46 #go2 爬樓梯
+    #policy_dir: ../../../logs/rsl_rl/unitree_go2_velocity/2026-02-23_19-20-23 #go2 爬樓梯
+    #policy_dir: ../../../logs/rsl_rl/unitree_go2_velocity/2026-01-05_15-31-52 #go2 樁w/o 5cm
+    policy_dir: ../../../logs/rsl_rl/unitree_go2_velocity/2026-01-05_00-52-48 #go2 樁 w/o fine-turn
+    #policy_dir: ../../../logs/rsl_rl/unitree_go2_velocity/2026-03-25_17-03-44 #go2 樁 w/o foothold penalty
+    #policy_dir: ../../../logs/rsl_rl/unitree_go2_velocity/2026-04-13_20-52-14 #go2 樁 w/o foothold air time
+    #policy_dir: ../../../logs/rsl_rl/unitree_go2_velocity/2026-03-26_15-43-44 #go2 樁 height 5cm
+    #policy_dir: ../../../logs/rsl_rl/unitree_go1_velocity/2026-01-21_15-30-57 #go1
+  Velocity_flat:
+    transitions:
+      Passive: LT +B.on_pressed
+      Velocity: start.on_pressed
+      Velocity_crouch: Y.on_pressed
+    policy_dir: ../../../logs/rsl_rl/unitree_go2_velocity/2026-02-03_15-54-17 #平地
+  Velocity_crouch:
+    transitions:
+      Passive: LT +B.on_pressed
+      Velocity: start.on_pressed
+      Velocity_flat: X.on_pressed
+    policy_dir: ../../../logs/rsl_rl/unitree_go2_velocity/2026-02-11_19-01-34 #平地
+    
+    
+    
